@@ -14,15 +14,17 @@ block content
   h1(style='background-color: black; color: white') Tasks
   #tasks
     h2 Health
-    #health
-      ul
+    for each in allTasks
+      if(each.category == 'health')
+        p= each.description
     h2 Wealth
-    #wealth
-      ul
-    h2 soul
-    #soul
-      ul
- 
+    for each in allTasks
+      if(each.category == 'wealth')
+        p= each.description
+    h2 Soul
+    for each in allTasks
+      if(each.category == 'soul')
+        p= each.description
   h1(style='background-color: black; color: white') Daily Plan
   #plan
     div

@@ -28,8 +28,8 @@ $(document).ready(function(){
         }
       })
 
-    //Accordion functionality, with drag/drop/sort ***********************
-    $(function() {
+      //Accordion functionality, with drag/drop/sort ***********************
+      $(function() {
         $( "#tasks" ).accordion();
         $( "#tasks li" ).draggable({
           appendTo: "body",
@@ -52,10 +52,10 @@ $(document).ready(function(){
             $( this ).removeClass( "ui-state-default" );
           }
         });
-    });
+      });
 
-    //THIS ADDS ABILITY TO DRAG FROM PLAN  TO TASKS
-    $(function() {
+      //THIS ADDS ABILITY TO DRAG FROM PLAN  TO TASKS
+      $(function() {
         
         $( "#plan li" ).draggable({
           appendTo: "body",
@@ -86,12 +86,39 @@ $(document).ready(function(){
       alert('Error loading orders')
     }
   })
- 
 
 
+  //Add task
+  $('#btnAddTask').on('click', function(){
 
+    var task = {
+      category: $(inputCategory).val(),
+      description: $(inputDescription).val()
+    };
 
+    $.ajax({
+      type: 'POST',
+      url: '/tasks',
+      data: task,
+      success: function(){
+
+        if(task.category == 'health'){
+          $health.append('<li>' + task.description + '</li>');
+        }
+        if(task.category == 'wealth'){
+          $wealth.append('<li>' + task.description + '</li>');
+        }
+        if(task.category == 'soul'){
+          $soul.append('<li>' + task.description + '</li>');
+        }
+      },
+      error: function(){
+        alert('Error adding task')
+      },        
+    })  
+  })
 
 
 
 })
+

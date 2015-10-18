@@ -7,7 +7,7 @@ var taskCollection = db.get('taskCollection')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   taskCollection.find({}, function(err, record){
-    res.render('index', { title: 'To Do List', allTasks: record });
+    res.render('index', { title: 'To Do List'});
   })
 });
 
@@ -16,5 +16,13 @@ router.get('/tasks', function(req, res) {
         res.json(docs);
     });
 });
+
+router.post('/tasks', function(req, res){
+  taskCollection.insert(req.body, function(err, result){
+    res.send(
+            (err === null) ? { msg: '' } : { msg: err }
+    );
+  })
+})
 
 module.exports = router;

@@ -3,12 +3,15 @@ extends layout
 block content
   h1= title
   p
-    | Category( health, wealth, or soul)
-    input(type='text' id= 'inputCategory')
+    | Category
+    select(id= 'inputCategory')
+      option(value='health') Health
+      option(value='wealth') Wealth
+      option(value='soul') Soul
 
   p
     | Description
-    input(type='text' id= 'inputDescription')
+    input(type='text' id= 'inputDescription' style='width: 400px')
   button(id='btnAddTask') Add task
 
   h1(style='background-color: black; color: white') Tasks

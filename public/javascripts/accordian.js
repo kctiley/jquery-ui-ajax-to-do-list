@@ -18,13 +18,13 @@ $(document).ready(function(){
     success: function(allOfTheTasks){
       $.each(allOfTheTasks, function(i, each){
         if(each.category == 'health'){
-          $health.append('<li>' + each.description + '</li>');
+          $health.append('<li>' + each.description + '<button id=' + each._id + ' class=\'remove\'>X</button></li>');
         }
         if(each.category == 'wealth'){
-          $wealth.append('<li>' + each.description + '</li>');
+          $wealth.append('<li>' + each.description + '<button id=' + each._id + ' class=\'remove\'>X</button></li>');
         }
         if(each.category == 'soul'){
-          $soul.append('<li>' + each.description + '</li>');
+          $soul.append('<li>' + each.description + '<button id=' + each._id + ' class=\'remove\'>X</button></li>');
         }
       })
 
@@ -103,13 +103,13 @@ $(document).ready(function(){
       success: function(){
 
         if(task.category == 'health'){
-          $health.append('<li>' + task.description + '</li>');
+          $health.append('<li>' + task.description + '<button id=' + task._id + ' class=\'remove\'>X</button></li>');
         }
         if(task.category == 'wealth'){
-          $wealth.append('<li>' + task.description + '</li>');
+          $wealth.append('<li>' + task.description + '<button id=' + task._id + ' class=\'remove\'>X</button></li>');
         }
         if(task.category == 'soul'){
-          $soul.append('<li>' + task.description + '</li>');
+          $soul.append('<li>' + task.description + '<button id=' + task._id + ' class=\'remove\'>X</button></li>');
         }
       },
       error: function(){
@@ -117,6 +117,35 @@ $(document).ready(function(){
       },        
     })  
   })
+
+  //DELETE TASKS
+  var $tasks = $('#tasks') ;
+  $tasks.delegate('.remove', 'click', function(){
+
+    console.log($(this).eq(0).attr('id'))
+
+    var buttonClicked = $(this)
+
+    var taskDeleteId = $(this).eq(0).attr('id')
+    debugger
+
+    var parentToRemove =  $(this).parent()
+    debugger
+
+    $.ajax({
+
+      type: 'DELETE',
+      url: '/tasks/delete/' + taskDeleteId,
+      success: function(){
+        parentToRemove.remove();
+      },
+      error: function(){
+        console.log("Error deleting...")
+      }
+    })
+  })
+
+
 
 
 

@@ -25,4 +25,13 @@ router.post('/tasks', function(req, res){
   })
 })
 
+router.delete('/tasks/delete/:_id', function(req, res){
+  console.log("Delete id ...." + req.params._id)
+  taskCollection.remove({_id: req.params._id}, function(err, record){
+    res.send(
+      (err === null) ? { msg: '' } : { msg: err }
+    );
+  })
+})  
+
 module.exports = router;
